@@ -83,13 +83,11 @@ function overlaps($intervals) {
     // sort the intervals on the start time
     sort($intervals); 
   
-    $start = $intervals[0]->start();
     $end = $intervals[0]->end();
     for ($i = 1; $i < count($intervals); $i++) {
         $interval = $intervals[$i];
         if ($interval->start() <= $end) return true;
         else{
-            $start = $interval->start();
             $end = $interval->end();
         } 
     }
