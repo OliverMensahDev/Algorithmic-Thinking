@@ -24,9 +24,10 @@ function merge_lists(array $lists) {
     $resultTail = null;
     while ($minHeap->count() > 0) {
       $node = $minHeap->extract();
-      if ($resultHead === null) {
+      if ($resultHead === null && $resultTail == null) {
         $resultHead = $resultTail = $node;
       } else {
+        // @var null $resultTail
         $resultTail->next = $node;
         $resultTail = $resultTail->next;
       }
@@ -39,10 +40,10 @@ function merge_lists(array $lists) {
   }
   
 $l1 = new ListNode(2);
-$l1->next = new ListNode(6);
-$l1->next->next = new ListNode(8);
+$l1->next = new ListNode(8);
+$l1->next->next = new ListNode(9);
   
-$l2 = new ListNode(3);
+$l2 = new ListNode(5);
 $l2->next = new ListNode(6);
 $l2->next->next = new ListNode(7);
   
@@ -53,6 +54,6 @@ $l3->next->next = new ListNode(4);
 $result = merge_lists([$l1, $l2, $l3]);
 echo 'Here are the elements form the merged list: ';
 while ($result !== null) {
-    echo $result->value;
+    echo $result->value. ' ';
     $result = $result->next;
 }
