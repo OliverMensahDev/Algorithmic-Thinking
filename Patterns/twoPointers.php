@@ -41,18 +41,17 @@ echo removeDuplicates([2, 3, 3, 3, 6, 9, 9]) . PHP_EOL;
 echo removeDuplicates([2, 2, 2, 11]) . PHP_EOL;
 
  
-function removeElement($arr, $key)
-{
-    $nextElementIndex = 0;
-    $i = 0;
-    while($i < count($arr)){
-        if($key != $arr[$i]){
-            $arr[$nextElementIndex] = $arr[$i];
-            $nextElementIndex += 1;
-        }
-        $i += 1;
+function removeElement($arr, $key){
+  $nextElementIndex = 0;
+  $i = 0;
+  while($i < count($arr)){
+    if($key != $arr[$i]){
+      $arr[$nextElementIndex] = $arr[$i];
+      $nextElementIndex += 1;
     }
-    return $nextElementIndex;
+    $i += 1;
+  }
+  return $nextElementIndex;
 }
 
 echo 'remove element'. PHP_EOL;
