@@ -1,43 +1,38 @@
 <?php
 
-function searchFloorOfANumber(array $arr, int $key){
-    if($key < $arr[0]) return -1;
-    $start = 0; 
-    $end  = count($arr) - 1; 
-    while($start <= $end){
-        $mid = floor($start +($end - $start)/2);
-        if($key < $arr[$mid])$end = $mid - 1;
-        else if($key > $arr[$mid]) $start = $mid + 1;
-        else return $mid;
-    }
+function mergeArrays(array $list){
+    $mergedArrays = [];
+    sort($list);
+    $listItemFirstValue = $list[0][0];
+    $listItemSecondValue  = $list[0][1];
 
-    return $end;
+    for($index = 1; $index < count($list); $index++){
+        $listItem = $list[$index];
+        if($listItem[0] <= $listItemSecondValue){
+            $listItemSecondValue = max($listItemSecondValue, $listItem[1]);
+        }else{
+            $mergedArrays[] = [$listItemFirstValue,  $listItemSecondValue];
+            $listItemFirstValue = $listItem[0];
+            $listItemSecondValue = $listItem[1];
+        }
+    }
+    $mergedArrays[] = [$listItemFirstValue,  $listItemSecondValue];
+
+    return $mergedArrays;
+}
+print_r( mergeArrays([[2,4], [1,2], [5, 10], [6,8]]));
+
+function pair_with_target_sum(array $list, int $targetSum){
+    $left = 0;
+    $right = count($list) - 1;
+    while($left <= $right){
+        $currentSum = $list[$left] + $list[$right];
+        if($currentSum == $targetSum) return [$left, $right];
+        else if($currentSum > $targetSum) $right -= 1;
+        else $left += 1;
+    }
+    return [-1, -1];
 }
 
-
-function searchCeilingOfANumber(array $arr, int $key){
-    $end = count($arr) - 1;
-    if($key > $arr[$end]) return -1;
-    $start = 0; 
-    while($start <= $end){
-        $mid = floor($start +($end - $start)/2);
-        if($key < $arr[$mid])$end = $mid - 1;
-        else if($key > $arr[$mid]) $start = $mid + 1;
-        else return $mid;
-    }
-    return $start;
-}
-
-$data = [1, 2, 8, 10, 12, 19];
-echo "The floor of 0 is ". searchFloorOfANumber($data, 0) .  PHP_EOL;
-echo "The ceiling of 0 is ". searchCeilingOfANumber($data, 0) .  PHP_EOL;
-
-echo "The floor of 1 is ". searchFloorOfANumber($data, 1) .  PHP_EOL;
-echo "The ceiling of 1 is ". searchCeilingOfANumber($data, 1) .  PHP_EOL;
-
-echo "The floor of 5 is ". searchFloorOfANumber($data, 5) .  PHP_EOL;
-echo "The ceiling of 5 is ". searchCeilingOfANumber($data, 5) .  PHP_EOL;
-
-
-echo "The floor of 20 is ". searchFloorOfANumber($data, 20) .  PHP_EOL;
-echo "The ceiling of 20 is ". searchCeilingOfANumber($data, 20) .  PHP_EOL;
+echo json_encode(pair_with_target_sum([1, 2, 3, 3, 4, 6], 6)) . PHP_EOL;
+echo json_encode(pair_with_target_sum([2, 5, 9, 11], 11)) . PHP_EOL; 
